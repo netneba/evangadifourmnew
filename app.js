@@ -20,4 +20,21 @@ app.use('/api/questions', questionroutes);
 const answerroutes = require('./routes/answerroutes');
 app.use('/api/answers', answerroutes);
 
+async function Start() {
+    try {
+        // Test DB connection
+        await dbconnect.execute("SELECT 'test'");
+
+        // Start server
+        await new Promise(resolve => app.listen(port, resolve));
+        console.log("DB connected successfully");
+        console.log(`Server is running on http://localhost:${port}`);
+    } catch (error) {
+        console.log("DB connection error", error);  
+    }
+}
+
+Start();
+
+
 
